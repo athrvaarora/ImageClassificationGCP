@@ -26,6 +26,7 @@ CORS(app, resources={
             "https://image-insight-rho.vercel.app/",
             "https://image-insight-596rytaeq-athrvaaroras-projects.vercel.app",
             "http://localhost:5000",
+            "https://image-insight-596rytaeq-athrvaaroras-projects.vercel.app",
             "https://image-classification-hscant2ko-athrvaaroras-projects.vercel.app",
 
         ],
