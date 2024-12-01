@@ -103,7 +103,7 @@ const ImageAnalyzer = () => {
               }`}
             >
               <img
-                src={`${API_URL}/classified_images/${image.filename}`}
+                src={`data:image/png;base64,${image.image_data}`}
                 alt={image.filename}
                 className="w-full h-40 object-cover rounded"
               />
@@ -119,7 +119,7 @@ const ImageAnalyzer = () => {
             <div className="space-y-6">
               <div className="bg-white rounded-lg shadow-sm overflow-hidden">
                 <img
-                  src={`${API_URL}/classified_images/${selectedImage.filename}`}
+                  src={`data:image/png;base64,${selectedImage.image_data}`}
                   alt={selectedImage.filename}
                   className="w-full h-auto"
                 />

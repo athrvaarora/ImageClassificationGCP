@@ -1,22 +1,21 @@
-# backend/image_classifier.py
 import os
 import json
 from datetime import datetime
 import base64
 from openai import OpenAI
 from PIL import Image
+import tempfile
 
 class ImageClassifier:
     def __init__(self, api_key):
         """Initialize the ImageClassifier with OpenAI API key."""
         self.client = OpenAI(api_key=api_key)
-        self.images_dir = "classified_images"
+        self.images_dir = tempfile.gettempdir()  # Use temp directory instead of classified_images
         self.analysis_file = os.path.join(self.images_dir, "image_analysis.json")
         self._ensure_directories()
 
     def _ensure_directories(self):
         """Create necessary directories and files."""
-        os.makedirs(self.images_dir, exist_ok=True)
         if not os.path.exists(self.analysis_file):
             with open(self.analysis_file, 'w', encoding='utf-8') as f:
                 json.dump({}, f)
@@ -27,14 +26,18 @@ class ImageClassifier:
             return base64.b64encode(image_file.read()).decode('utf-8')
 
     def save_uploaded_image(self, image_file):
-        """Save uploaded image and return the filepath."""
+        """Save uploaded image and return the filepath and base64 encoding."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"image_{timestamp}.png"
         filepath = os.path.join(self.images_dir, filename)
         
         image = Image.open(image_file)
         image.save(filepath, 'PNG')
-        return filepath
+        
+        # Get base64 encoding of the image
+        encoded_image = self._encode_image(filepath)
+        
+        return filepath, encoded_image
 
     def analyze_image(self, image_path):
         """Analyze image using OpenAI Vision capabilities with merged analysis."""
@@ -110,7 +113,8 @@ Provide confidence scores (0-100%) where applicable and ensure descriptions are 
             analysis_result = {
                 "classification": response.choices[0].message.content,
                 "timestamp": datetime.now().isoformat(),
-                "image_path": image_path
+                "image_path": image_path,
+                "image_data": base64_image  # Include base64 image data in result
             }
 
             # Save analysis

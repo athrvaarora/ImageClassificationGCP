@@ -1,6 +1,7 @@
 # main.py
 import os
 import json
+import tempfile
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from backend.image_classifier import ImageClassifier
@@ -13,15 +14,13 @@ app = Flask(__name__, static_folder='frontend/dist')
 # Update CORS to allow requests from your Vercel frontend
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["https://your-frontend-url.vercel.app"],
+        "origins": ["https://image-insight-n81u2h8gq-athrvaaroras-projects.vercel.app"],
         "methods": ["GET", "POST", "OPTIONS"]
     }
 })
 
 # Add your OpenAI API key here
 API_KEY = os.getenv('OPENAI_API_KEY')
-# Create necessary directories
-os.makedirs('classified_images', exist_ok=True)
 
 @app.route('/')
 def serve_app():
@@ -42,10 +41,13 @@ def classify_image():
     
     try:
         classifier = ImageClassifier(API_KEY)
-        filepath = classifier.save_uploaded_image(file)
+        filepath, encoded_image = classifier.save_uploaded_image(file)
         analysis = classifier.analyze_image(filepath)
         
         if analysis:
+            # Make sure analysis contains the base64 image data
+            if 'image_data' not in analysis:
+                analysis['image_data'] = encoded_image
             return jsonify(analysis)
         return jsonify({'error': 'Analysis failed'}), 500
     except Exception as e:
@@ -55,18 +57,10 @@ def classify_image():
 def get_image_analyses():
     try:
         classifier = ImageClassifier(API_KEY)
-        return jsonify(classifier.get_all_analyses())
+        analyses = classifier.get_all_analyses()
+        return jsonify(analyses)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/classified_images/<path:filename>')
-def serve_classified_image(filename):
-    return send_from_directory('classified_images', filename)
-
 if __name__ == '__main__':
-    # Create empty analysis file if it doesn't exist
-    if not os.path.exists('classified_images/image_analysis.json'):
-        with open('classified_images/image_analysis.json', 'w') as f:
-            json.dump({}, f)
-    
     app.run(port=5000, debug=True)
