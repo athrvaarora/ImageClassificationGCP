@@ -6,3 +6,5 @@ openai
 numpy
 easyocr
 markdown
+python-multipart
+python-dotenv==1.0.0

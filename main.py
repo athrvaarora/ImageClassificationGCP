@@ -5,14 +5,16 @@ from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from backend.image_classifier import ImageClassifier
 import webview
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='frontend/dist')
 CORS(app)
 
 # Add your OpenAI API key here
-API_KEY = "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"
-
+API_KEY = os.getenv('OPENAI_API_KEY')
 # Create necessary directories
 os.makedirs('classified_images', exist_ok=True)
 
