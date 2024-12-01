@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prose {
+  @apply text-gray-900;
+}
+
+.prose h1 {
+  @apply text-2xl font-bold mb-4 text-gray-900;
+}
+
+.prose h2 {
+  @apply text-xl font-semibold mt-6 mb-3 text-gray-800;
+}
+
+.prose h3 {
+  @apply text-lg font-medium mt-4 mb-2 text-gray-800;
+}
+
+.prose p {
+  @apply my-2 text-gray-700;
+}
+
+.prose ul {
+  @apply list-disc ml-4 my-2;
+}
+
+.prose li {
+  @apply my-1;
+}
+
+.prose pre {
+  @apply bg-gray-50 p-4 rounded-lg my-4;
+}
+
+.prose code {
+  @apply bg-gray-100 text-red-600 px-1 py-0.5 rounded text-sm;
+}

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prose img {
+  margin: 0 auto;
+}
+
+.prose pre {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.prose code {
+  color: #ef4444;
+  background-color: #fee2e2;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+}
