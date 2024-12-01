@@ -18,7 +18,11 @@ CORS(app, resources={
             "https://image-insight-n81u2h8gq-athrvaaroras-projects.vercel.app",
             "https://image-insight-clib88dp0-athrvaaroras-projects.vercel.app",
             "https://image-insight-ce8atzsvm-athrvaaroras-projects.vercel.app"
-            "https://image-classification-gcp.vercel.app",    
+            "https://image-classification-gcp.vercel.app",  
+            "https://image-insight-596rytaeq-athrvaaroras-projects.vercel.app ",
+            "https://vercel.com/athrvaaroras-projects/image-insight/AeUR1NP7bvwLjgfDyBFvinUQAPok",
+            "image-classification-gcpas.vercel.app
+  
             "http://localhost:5000"
         ],
         "methods": ["GET", "POST", "OPTIONS"],
@@ -38,7 +42,9 @@ def serve_app():
 @app.route('/assets/<path:path>')
 def serve_assets(path):
     return send_from_directory(os.path.join(app.static_folder, 'assets'), path)
-
+@app.route('/ping')
+def ping():
+    return 'ok'
 @app.route('/api/classify-image', methods=['POST'])
 def classify_image():
     if 'image' not in request.files:
