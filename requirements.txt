@@ -8,3 +8,4 @@ easyocr
 markdown
 python-multipart
 python-dotenv==1.0.0
+gunicorn==20.1.0

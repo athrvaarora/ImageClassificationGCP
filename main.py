@@ -11,7 +11,13 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='frontend/dist')
-CORS(app)
+# Update CORS to allow requests from your Vercel frontend
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["https://your-frontend-url.vercel.app"],
+        "methods": ["GET", "POST", "OPTIONS"]
+    }
+})
 
 # Add your OpenAI API key here
 API_KEY = os.getenv('OPENAI_API_KEY')

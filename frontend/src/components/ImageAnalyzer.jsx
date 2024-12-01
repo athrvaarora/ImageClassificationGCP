@@ -1,8 +1,9 @@
-// frontend/src/components/ImageAnalyzer.jsx
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Upload } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const ImageAnalyzer = () => {
   const [images, setImages] = useState([]);
@@ -16,9 +17,9 @@ const ImageAnalyzer = () => {
 
   const fetchAnalyses = async () => {
     try {
-      const response = await fetch('/api/image-analyses');
+      const response = await fetch(`${API_URL}/api/image-analyses`);
       const data = await response.json();
-      console.log('Fetched analyses:', data); // Debug log
+      console.log('Fetched analyses:', data);
       
       const analysesArray = Object.entries(data)
         .map(([filename, analysis]) => ({
@@ -46,7 +47,7 @@ const ImageAnalyzer = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/classify-image', {
+      const response = await fetch(`${API_URL}/api/classify-image`, {
         method: 'POST',
         body: formData,
       });
@@ -102,7 +103,7 @@ const ImageAnalyzer = () => {
               }`}
             >
               <img
-                src={`/classified_images/${image.filename}`}
+                src={`${API_URL}/classified_images/${image.filename}`}
                 alt={image.filename}
                 className="w-full h-40 object-cover rounded"
               />
@@ -118,7 +119,7 @@ const ImageAnalyzer = () => {
             <div className="space-y-6">
               <div className="bg-white rounded-lg shadow-sm overflow-hidden">
                 <img
-                  src={`/classified_images/${selectedImage.filename}`}
+                  src={`${API_URL}/classified_images/${selectedImage.filename}`}
                   alt={selectedImage.filename}
                   className="w-full h-auto"
                 />
