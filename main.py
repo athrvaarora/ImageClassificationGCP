@@ -11,7 +11,7 @@ app = Flask(__name__, static_folder='frontend/dist')
 CORS(app)
 
 # Add your OpenAI API key here
-API_KEY = "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"
+API_KEY = "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"
 
 # Create necessary directories
 os.makedirs('classified_images', exist_ok=True)
