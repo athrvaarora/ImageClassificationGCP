@@ -4,7 +4,6 @@ import json
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from backend.image_classifier import ImageClassifier
-import webview
 from dotenv import load_dotenv
 
 load_dotenv() 
