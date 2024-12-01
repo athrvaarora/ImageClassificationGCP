@@ -22,12 +22,12 @@ CORS(app, resources={
             "https://image-insight-596rytaeq-athrvaaroras-projects.vercel.app ",
             "https://vercel.com/athrvaaroras-projects/image-insight/AeUR1NP7bvwLjgfDyBFvinUQAPok",
             "https://image-classification-gcpas.vercel.app",
-            "https://image-classification-gcp-athrvaaroras-projects.vercel.app/",
+            "https://image-classification-gcp-athrvaaroras-projects.vercel.app",
             "https://image-insight-rho.vercel.app/",
-            "https://image-insight-596rytaeq-athrvaaroras-projects.vercel.app/",
+            "https://image-insight-596rytaeq-athrvaaroras-projects.vercel.app",
             "http://localhost:5000",
-            "https://image-classification-hscant2ko-athrvaaroras-projects.vercel.app/",
-            
+            "https://image-classification-hscant2ko-athrvaaroras-projects.vercel.app",
+
         ],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"],
