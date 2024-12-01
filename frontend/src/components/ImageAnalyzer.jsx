@@ -21,12 +21,19 @@ const ImageAnalyzer = () => {
       const data = await response.json();
       console.log('Fetched analyses:', data);
       
+      if (!data || Object.keys(data).length === 0) {
+        console.log('No analyses found');
+        return;
+      }
+      
       const analysesArray = Object.entries(data)
         .map(([filename, analysis]) => ({
           filename,
           ...analysis
         }))
         .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      console.log('Processed analyses:', analysesArray);
       
       setImages(analysesArray);
       if (!selectedImage && analysesArray.length > 0) {
@@ -37,14 +44,14 @@ const ImageAnalyzer = () => {
       setError('Failed to load analyses');
     }
   };
-
+  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
+  
     const formData = new FormData();
     formData.append('image', file);
-
+  
     setLoading(true);
     try {
       const response = await fetch(`${API_URL}/api/classify-image`, {
@@ -54,8 +61,16 @@ const ImageAnalyzer = () => {
       
       if (!response.ok) throw new Error('Upload failed');
       
+      const result = await response.json();
+      console.log('Upload response:', result);
+      
+      if (result.error) {
+        throw new Error(result.error);
+      }
+      
       await fetchAnalyses();
     } catch (error) {
+      console.error('Upload error:', error);
       setError('Failed to upload and analyze image');
     } finally {
       setLoading(false);

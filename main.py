@@ -14,8 +14,16 @@ app = Flask(__name__, static_folder='frontend/dist')
 # Update CORS to allow requests from your Vercel frontend
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["https://image-insight-n81u2h8gq-athrvaaroras-projects.vercel.app"],
-        "methods": ["GET", "POST", "OPTIONS"]
+        "origins": [
+            "https://image-insight-n81u2h8gq-athrvaaroras-projects.vercel.app",
+            "https://image-insight-clib88dp0-athrvaaroras-projects.vercel.app",
+            "https://image-insight-ce8atzsvm-athrvaaroras-projects.vercel.app"    
+            "http://localhost:5000"
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+        "expose_headers": ["Content-Type"],
+        "support_credentials": True
     }
 })
 
