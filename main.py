@@ -18,8 +18,7 @@ CORS(app, resources={
             "https://image-insight-n81u2h8gq-athrvaaroras-projects.vercel.app",
             "https://image-insight-clib88dp0-athrvaaroras-projects.vercel.app",
             "https://image-insight-ce8atzsvm-athrvaaroras-projects.vercel.app"
-            "https://image-classification-gcp.vercel.app
-"    
+            "https://image-classification-gcp.vercel.app",    
             "http://localhost:5000"
         ],
         "methods": ["GET", "POST", "OPTIONS"],
